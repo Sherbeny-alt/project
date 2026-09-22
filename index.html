@@ -114,31 +114,6 @@
     word-wrap: break-word;
   }
 
-  /* ===== Assets grid ===== */
-  .assets-grid {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 8px;
-    margin: 0 0 4px 0;
-  }
-  .asset-card {
-    width: 50%;
-    background: #FFF8EE;
-    border: 1px solid #EFDCB8;
-    border-radius: 10px;
-    padding: 12px 16px;
-    vertical-align: top;
-  }
-  .asset-card code {
-    background: #FCEFD6;
-  }
-  .asset-card p {
-    margin: 6px 0 0 0;
-    font-size: 13.5px;
-    color: #5A4A30;
-    line-height: 1.7;
-  }
-
   /* ===== Flow diagram ===== */
   .flow-box {
     background: #F0F6F5;
@@ -206,123 +181,137 @@
   </p>
 
   <h2>٢. الداتا (Dataset)</h2>
-<p dir="rtl">
-  اخترنا <a href="https://www.kaggle.com/datasets/taweilo/loan-approval-classification-data" target="_blank"><bdi>Loan
-      Approval Prediction Dataset</bdi></a> الذي يحتوي على 4,269 طلب قرض، وبه 13
-  <bdi>Feature</bdi> مثل <code>CIBIL Score</code>، وقيمة القرض، ومدة القرض، والدخل السنوي.
-  <bdi>Target</bdi> هو <code>loan_status</code>.
-</p>
+  <p dir="rtl">
+    اخترنا <a href="https://www.kaggle.com/datasets/taweilo/loan-approval-classification-data" target="_blank"><bdi>Loan
+        Approval Classification Dataset</bdi></a> الذي يحتوي على <strong>45,000</strong> طلب قرض، وبه 13
+    <bdi>Feature</bdi> مثل الدخل السنوي، ودرجة الائتمان (<code>credit_score</code>)، ومدة السجل الائتماني، والعمر.
+    <bdi>Target</bdi> هو <code>loan_status</code>.
+  </p>
   <p>طبعًا، خلينا نفهم كل Feature ببساطة وليه ممكن يكون له علاقة بقرار القرض:</p>
 
   <h2>٣. أهم الـ Features</h2>
 
   <div class="feature">
-    <span class="feature-name"><code>income_annum</code> ← الدخل السنوي</span>
+    <span class="feature-name"><code>person_age</code> ← عمر المتقدم</span>
+    <ul>
+      <li>عمر الشخص مقدم الطلب بالسنوات.</li>
+      <li>مثال: شخص عمره 30 سنة.</li>
+      <li>قد يعكس مدى الاستقرار المالي والخبرة الحياتية للمتقدم.</li>
+    </ul>
+  </div>
+
+  <div class="feature">
+    <span class="feature-name"><code>person_gender</code> ← جنس المتقدم</span>
+    <ul>
+      <li><code>Male</code> ← ذكر.</li>
+      <li><code>Female</code> ← أنثى.</li>
+      <li>سنستخدمه كـ Feature ونختبر هل له علاقة بالـ <code>loan_status</code>، دون افتراض مسبق بتأثيره.</li>
+    </ul>
+  </div>
+
+  <div class="feature">
+    <span class="feature-name"><code>person_education</code> ← المستوى التعليمي</span>
+    <ul>
+      <li>يوضح أعلى مؤهل تعليمي حصل عليه المتقدم.</li>
+      <li>مثال: <code>High School</code>، <code>Bachelor</code>، <code>Master</code>، <code>Doctorate</code>.</li>
+      <li>يساعد في دراسة مدى ارتباط المستوى التعليمي بقرار الموافقة.</li>
+    </ul>
+  </div>
+
+  <div class="feature">
+    <span class="feature-name"><code>person_income</code> ← الدخل السنوي</span>
     <ul>
       <li>المبلغ الذي يكسبه المتقدم خلال سنة.</li>
-      <li>مثال: شخص دخله السنوي 500,000.</li>
+      <li>مثال: دخل سنوي 55,000.</li>
       <li>يساعد في معرفة قدرة الشخص على سداد القرض.</li>
     </ul>
   </div>
 
   <div class="feature">
-    <span class="feature-name"><code>loan_amount</code> ← قيمة القرض</span>
+    <span class="feature-name"><code>person_emp_exp</code> ← سنوات الخبرة الوظيفية</span>
+    <ul>
+      <li>عدد سنوات خبرة المتقدم في العمل.</li>
+      <li>مثال: <code>5</code> يعني 5 سنوات خبرة.</li>
+      <li>يعكس مدى استقرار مصدر دخل المتقدم.</li>
+    </ul>
+  </div>
+
+  <div class="feature">
+    <span class="feature-name"><code>person_home_ownership</code> ← نوع ملكية السكن</span>
+    <ul>
+      <li><code>Rent</code> ← إيجار.</li>
+      <li><code>Own</code> ← ملك.</li>
+      <li><code>Mortgage</code> ← رهن عقاري.</li>
+      <li><code>Other</code> ← أخرى.</li>
+      <li>يعطي فكرة عن الوضع المالي والاستقرار السكني للمتقدم.</li>
+    </ul>
+  </div>
+
+  <div class="feature">
+    <span class="feature-name"><code>loan_amnt</code> ← قيمة القرض المطلوبة</span>
     <ul>
       <li>المبلغ الذي يريد الشخص اقتراضه.</li>
-      <li>مثال: يطلب قرض بقيمة 1,000,000.</li>
+      <li>مثال: يطلب قرض بقيمة 10,000.</li>
       <li>كلما زادت قيمة القرض مقارنة بالدخل، قد يصبح السداد أكثر صعوبة.</li>
     </ul>
   </div>
 
   <div class="feature">
-    <span class="feature-name"><code>loan_term</code> ← مدة القرض</span>
+    <span class="feature-name"><code>loan_intent</code> ← الغرض من القرض</span>
     <ul>
-      <li>المدة التي سيستغرقها الشخص في سداد القرض.</li>
-      <li>في الـ Dataset تكون بالسنوات.</li>
-      <li>مثال: <code>10</code> يعني أن مدة القرض 10 سنوات.</li>
+      <li>يوضح الهدف الذي سيُستخدم القرض من أجله.</li>
+      <li>مثال: <code>Education</code>، <code>Medical</code>، <code>Personal</code>، <code>Venture</code>، <code>Debt Consolidation</code>، <code>Home Improvement</code>.</li>
     </ul>
   </div>
 
   <div class="feature">
-    <span class="feature-name"><code>cibil_score</code> ← الـ Credit Score</span>
+    <span class="feature-name"><code>loan_int_rate</code> ← معدل الفائدة على القرض</span>
+    <ul>
+      <li>النسبة السنوية للفائدة المطبقة على القرض.</li>
+      <li>مثال: معدل فائدة 11.5%.</li>
+    </ul>
+  </div>
+
+  <div class="feature">
+    <span class="feature-name"><code>loan_percent_income</code> ← نسبة القرض من الدخل</span>
+    <ul>
+      <li>نسبة قيمة القرض إلى الدخل السنوي للمتقدم.</li>
+      <li>كلما زادت هذه النسبة، زادت المخاطرة على قدرة السداد.</li>
+    </ul>
+  </div>
+
+  <div class="feature">
+    <span class="feature-name"><code>cb_person_cred_hist_length</code> ← طول السجل الائتماني</span>
+    <ul>
+      <li>عدد السنوات التي يمتلك فيها المتقدم سجلًا ائتمانيًا مسجّلًا.</li>
+      <li>مثال: <code>6</code> يعني 6 سنوات من السجل الائتماني.</li>
+    </ul>
+  </div>
+
+  <div class="feature">
+    <span class="feature-name"><code>credit_score</code> ← الـ Credit Score</span>
     <ul>
       <li>مؤشر رقمي على التاريخ الائتماني للشخص، أي مدى انتظامه في التعامل مع القروض والالتزامات الائتمانية السابقة.</li>
       <li>الدرجة الأعلى تعني عادةً سجلًا ائتمانيًا أفضل.</li>
-      <li>مثال: شخص لديه <code>CIBIL = 750</code> لديه سجل ائتماني أفضل من شخص لديه <code>CIBIL = 550</code>.</li>
       <li>وهو Feature مهم جدًا لأن البنك يهتم بمدى التزام الشخص بالسداد.</li>
     </ul>
   </div>
 
   <div class="feature">
-    <span class="feature-name"><code>education</code> ← مستوى التعليم</span>
+    <span class="feature-name"><code>previous_loan_defaults_on_file</code> ← تعثّر سابق في السداد</span>
     <ul>
-      <li>يوضح هل المتقدم Graduate أم Not Graduate.</li>
-      <li>يعني مثلًا:
-        <ul>
-          <li><code>Graduate</code> ← حاصل على مؤهل جامعي.</li>
-          <li><code>Not Graduate</code> ← غير حاصل على مؤهل جامعي.</li>
-        </ul>
-      </li>
-      <li>سنستخدمه كـ Feature ونختبر هل له علاقة بالـ <code>loan_status</code> في البيانات، وليس افتراضًا مسبقًا أن التعليم يحدد الموافقة.</li>
+      <li><code>Yes</code> ← تعثّر المتقدم في سداد قرض سابق.</li>
+      <li><code>No</code> ← لا يوجد تعثّر سابق.</li>
+      <li>عامل مهم جدًا لتقييم مخاطر التعثّر المستقبلي.</li>
     </ul>
   </div>
-
-  <div class="feature">
-    <span class="feature-name"><code>self_employed</code> ← العمل لحساب الشخص</span>
-    <ul>
-      <li>يوضح هل الشخص يعمل لحسابه الخاص أم لا.</li>
-      <li><code>Yes</code> ← Self-employed.</li>
-      <li><code>No</code> ← ليس Self-employed.</li>
-      <li>قد يساعد النموذج في فهم طبيعة مصدر دخل المتقدم.</li>
-    </ul>
-  </div>
-
-  <div class="feature">
-    <span class="feature-name"><code>no_of_dependents</code> ← عدد الأشخاص المعالين</span>
-    <ul>
-      <li>عدد الأشخاص الذين يعتمدون ماليًا على المتقدم.</li>
-      <li>مثال: <code>3</code> يعني أن هناك 3 أشخاص يعتمدون عليه ماليًا.</li>
-      <li>يمكن أن يساعد في تحليل الدخل المتاح للمتقدم بعد التزاماته الأسرية.</li>
-    </ul>
-  </div>
-
-  <h2>الأصول</h2>
-  <p>عندنا 4 أنواع مهمة:</p>
-
-  <table class="assets-grid">
-    <tr>
-      <td class="asset-card">
-        <code>residential_assets_value</code>
-        <p>قيمة الأصول السكنية التي يمتلكها الشخص، مثل منزل أو عقار سكني.</p>
-      </td>
-      <td class="asset-card">
-        <code>commercial_assets_value</code>
-        <p>قيمة الأصول التجارية، مثل محل أو مبنى/عقار تجاري.</p>
-      </td>
-    </tr>
-    <tr>
-      <td class="asset-card">
-        <code>luxury_assets_value</code>
-        <p>قيمة الأصول الكمالية، مثل السيارات أو الممتلكات ذات الطابع الكمالي بحسب تعريف البيانات.</p>
-      </td>
-      <td class="asset-card">
-        <code>bank_asset_value</code>
-        <p>قيمة الأصول الموجودة لدى الشخص في البنك.</p>
-      </td>
-    </tr>
-  </table>
-
-  <p>
-    فكرة الأصول عمومًا: تعطينا صورة عن الوضع المالي للمتقدم، وسنترك للـ EDA والـ Model
-    اختبار مدى ارتباط هذه المتغيرات بنتيجة القرض بدل افتراض تأثيرها مسبقًا.
-  </p>
 
   <h2>ببساطة جدًا</h2>
   <div class="flow-box">
     <div class="flow-step">بيانات الشخص</div><br>
     <div class="flow-arrow">↓</div><br>
-    <div class="flow-step">الدخل + القرض + CIBIL Score</div><br>
-    <div class="flow-step">التعليم + العمل + المعالين + الأصول</div><br>
+    <div class="flow-step">الدخل + العمر + الخبرة الوظيفية + Credit Score</div><br>
+    <div class="flow-step">التعليم + نوع السكن + الغرض من القرض + التعثّر السابق</div><br>
     <div class="flow-arrow">↓</div><br>
     <div class="flow-step">Machine Learning Model</div><br>
     <div class="flow-arrow">↓</div><br>
@@ -332,7 +321,7 @@
   </div>
 
   <div class="target-box">
-    الـ Target هو: <code>loan_status</code> ← Loan Approved / Rejected
+    الـ Target هو: <code>loan_status</code> ← Approved (1) / Rejected (0)
   </div>
 
   <div class="footer-note">تم إعداد هذا الملخص لتوضيح مكونات مشروع توقّع الموافقة على القرض</div>
