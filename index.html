@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>مقترحات مشاريع علم البيانات</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fbf9f5;
+    --ink: #201c16;
+    --paper: #ffffff;
+    --line: #e4ddce;
+    --accent-1: #b5502f; /* حرائق - طوبي/طيني */
+    --accent-2: #2f6b58; /* طعام - أخضر زيتي غامق */
+    --accent-3: #2c4a6b; /* سيارات - أزرق داكن */
+    --muted: #6b6355;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #17140f;
+      --ink: #f2ede2;
+      --paper: #211d16;
+      --line: #3a3327;
+      --muted: #b3a793;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #17140f;
+    --ink: #f2ede2;
+    --paper: #211d16;
+    --line: #3a3327;
+    --muted: #b3a793;
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Cairo', 'Segoe UI', sans-serif;
+    line-height: 1.75;
+  }
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 56px 24px 80px;
+  }
+  header.top {
+    margin-bottom: 48px;
+    border-bottom: 3px solid var(--ink);
+    padding-bottom: 24px;
+  }
+  header.top .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+    margin-bottom: 10px;
+  }
+  h1 {
+    font-size: clamp(28px, 5vw, 40px);
+    font-weight: 800;
+    margin: 0;
+  }
+  section.project {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 32px clamp(20px, 4vw, 40px);
+    margin-bottom: 28px;
+    border-right: 6px solid var(--accent);
+  }
+  section.project:nth-of-type(1) { --accent: var(--accent-1); }
+  section.project:nth-of-type(2) { --accent: var(--accent-2); }
+  section.project:nth-of-type(3) { --accent: var(--accent-3); }
+
+  .project h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 0 6px;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .project h2 .num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .project h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin: 22px 0 8px;
+  }
+  .project p { margin: 0 0 8px; color: var(--ink); }
+  .project ul, .project ol {
+    margin: 6px 0 6px;
+    padding-inline-start: 22px;
+  }
+  .project li { margin-bottom: 4px; }
+  .goal {
+    margin-top: 18px;
+    padding: 14px 16px;
+    background: color-mix(in srgb, var(--accent) 8%, transparent);
+    border-radius: 3px;
+    font-weight: 600;
+  }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 3px 9px;
+    color: var(--muted);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 8px;
+    font-size: 14.5px;
+    overflow-x: auto;
+    display: block;
+  }
+  @media (min-width: 500px) { table { display: table; } }
+  th, td {
+    border: 1px solid var(--line);
+    padding: 10px 12px;
+    text-align: right;
+  }
+  th {
+    background: var(--paper);
+    font-weight: 700;
+    font-size: 13.5px;
+  }
+  .summary-section {
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 24px clamp(20px, 4vw, 40px);
+    background: var(--paper);
+  }
+  .summary-section h2 {
+    font-size: 18px;
+    margin: 0 0 12px;
+  }
+  .scroll-x { overflow-x: auto; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="eyebrow">DATA SCIENCE — PROJECT BRIEFS</div>
+    <h1>مقترحات مشاريع علم البيانات</h1>
+  </header>
+
+  <section class="project">
+    <h2><span class="num">01</span> 🔥 اكتشاف بؤر الحرائق وحرق قش الأرز في دلتا النيل</h2>
+
+    <h3>الفكرة</h3>
+    <p>استخدام بيانات الأقمار الصناعية لاكتشاف مناطق وتوقيتات الحرائق في دلتا النيل، خصوصًا خلال فترة حرق قش الأرز بعد موسم الحصاد.</p>
+
+    <h3>مصادر البيانات</h3>
+    <ul>
+      <li><strong>NASA FIRMS</strong> — بيانات الحرائق (Fire Hotspots)</li>
+      <li><strong>Open-Meteo</strong> — بيانات الطقس</li>
+    </ul>
+
+    <h3>خطوات العمل</h3>
+    <ol>
+      <li>تنظيف البيانات ودمج مصدري البيانات.</li>
+      <li>تحديد بؤر الحرائق باستخدام خوارزمية <strong>DBSCAN</strong>.</li>
+      <li>تحليل الموسمية لفهم توقيت الحرائق على مدار العام.</li>
+      <li>بناء نموذج تنبؤي يتوقع الأيام ذات النشاط المرتفع بناءً على بيانات الطقس ووقت السنة.</li>
+    </ol>
+
+    <div class="goal">🎯 الهدف: تحديد الأنماط الزمنية والمكانية لحرائق قش الأرز، والمساعدة في التنبؤ المبكر بأيام الخطورة العالية.</div>
+
+    <h3>التقنيات المستخدمة</h3>
+    <div class="tags">
+      <span class="tag">Python</span>
+      <span class="tag">Pandas / Scikit-learn</span>
+      <span class="tag">DBSCAN</span>
+      <span class="tag">Time Series</span>
+      <span class="tag">NASA FIRMS API</span>
+      <span class="tag">Open-Meteo API</span>
+    </div>
+  </section>
+
+  <section class="project">
+    <h2><span class="num">02</span> 🍳 التنبؤ بوقت تحضير الطلبات الغذائية</h2>
+
+    <h3>الفكرة</h3>
+    <p>بدلًا من التنبؤ بوقت توصيل الطلب، يركز المشروع على التنبؤ بالوقت الذي يحتاجه المطعم لتحضير الطلب.</p>
+
+    <h3>البيانات والخصائص</h3>
+    <ul>
+      <li>المطعم</li>
+      <li>نوع الطعام</li>
+      <li>عدد الأصناف في الطلب</li>
+      <li>تكلفة الطلب</li>
+      <li>وقت وتاريخ الطلب</li>
+    </ul>
+
+    <h3>خطوات العمل</h3>
+    <ol>
+      <li>جمع وتنظيف بيانات الطلبات.</li>
+      <li>هندسة الخصائص (Feature Engineering).</li>
+      <li>بناء نموذج Machine Learning للتنبؤ بمدة التحضير.</li>
+      <li>(اختياري) قاعدة بيانات لإدارة المطاعم والطلبات.</li>
+      <li>(اختياري) Dashboard أو Deployment لعرض التوقعات.</li>
+    </ol>
+
+    <div class="goal">🎯 الهدف: مساعدة المطاعم ومنصات التوصيل على تقدير وقت التجهيز بدقة أكبر، وتقليل التأخير.</div>
+
+    <h3>التقنيات المستخدمة</h3>
+    <div class="tags">
+      <span class="tag">Python</span>
+      <span class="tag">Scikit-learn / XGBoost</span>
+      <span class="tag">SQL Database</span>
+      <span class="tag">Streamlit / Flask</span>
+    </div>
+  </section>
+
+  <section class="project">
+    <h2><span class="num">03</span> 🚗 نظام ذكي لاختيار وتسعير السيارات المستعملة</h2>
+
+    <h3>الفكرة</h3>
+    <p>تطوير المشروع من مجرد "التنبؤ بسعر السيارة" إلى نظام متكامل يساعد المستخدم على اختيار السيارة المناسبة له.</p>
+
+    <h3>آلية العمل</h3>
+    <p>يدخل المستخدم متطلباته (الميزانية، نوع الوقود، ناقل الحركة، طبيعة الاستخدام)، ويقوم النظام بـ:</p>
+    <ol>
+      <li>ترشيح السيارات المناسبة لمتطلبات المستخدم.</li>
+      <li>التنبؤ بالسعر العادل للسيارة المرشحة.</li>
+      <li>(اختياري) حساب الأقساط بناءً على الميزانية.</li>
+    </ol>
+
+    <h3>خطوات العمل</h3>
+    <ol>
+      <li>جمع بيانات أسعار السيارات المستعملة.</li>
+      <li>هندسة الخصائص.</li>
+      <li>بناء نموذج تنبؤ بالسعر.</li>
+      <li>بناء نظام توصية لترشيح السيارات.</li>
+    </ol>
+
+    <div class="goal">🎯 الهدف: مساعدة المستخدم على اختيار السيارة الأنسب بناءً على احتياجاته وميزانيته، لا مجرد معرفة سعر سيارة بعينها.</div>
+
+    <h3>التقنيات المستخدمة</h3>
+    <div class="tags">
+      <span class="tag">Python</span>
+      <span class="tag">Feature Engineering</span>
+      <span class="tag">Recommendation System</span>
+      <span class="tag">Regression Models</span>
+    </div>
+  </section>
+
+  <section class="summary-section">
+    <h2>ملخص مقارن</h2>
+    <div class="scroll-x">
+    <table>
+      <thead>
+        <tr>
+          <th>المشروع</th>
+          <th>نوع المشكلة</th>
+          <th>التقنية الأساسية</th>
+          <th>مستوى التعقيد</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>بؤر الحرائق في دلتا النيل</td>
+          <td>Clustering + Forecasting</td>
+          <td>DBSCAN + بيانات جغرافية/طقس</td>
+          <td>متوسط - عالي</td>
+        </tr>
+        <tr>
+          <td>وقت تحضير الطلبات</td>
+          <td>Regression</td>
+          <td>ML + Database + Dashboard</td>
+          <td>متوسط</td>
+        </tr>
+        <tr>
+          <td>نظام اختيار السيارات</td>
+          <td>Regression + Recommendation</td>
+          <td>ML + Recommendation System</td>
+          <td>متوسط - عالي</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>
